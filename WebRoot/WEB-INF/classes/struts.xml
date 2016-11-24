@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 开发模式，在修改struts配置文件的时候不需要重启容器 -->
+	<constant name="struts.devMode" value="true"/>
+	
+	<package name="shop" extends="json-default">
+		
+		<global-results>
+			<result name="aindex">/WEB-INF/main/aindex.jsp</result>
+			<result name="index">/index.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="ulogin" type="redirect">/ulogin.jsp</result>
+			<result name="stream" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</global-results>
+		<!--
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"/>
+		</global-exception-mappings>
+	  -->
+		<action name="category_*" class="categoryAction" method="{1}">
+			<result name="listByOneCatgory">/listproduct.jsp</result>
+			<result name="index">/index.jsp</result>
+			<!-- 必须先添加json包，然后继承json-default -->
+			<result name="jsonList" type="json">
+				<param name="root">jsonList</param>
+				 <param name="excludeProperties">
+				 	 \[\d+\]\.account
+				 </param>
+			</result>
+			<result name="jsonMap" type="json">
+				<param name="root">pageMap</param>
+				
+				<!-- 配置黑名单，过滤不需要的选项（密码等），支持正则表达式
+				\d:一个数字               +:一个或多个             ?:0或者1
+				*:1或多                   [ABC]:自定义类型，必须是ABC其中一个    .:任意字符
+				 -->
+				 <param name="excludeProperties">
+				 	 rows\[\d+\]\.account\.pass,
+				 	 rows\[\d+\]\.account\.name
+				 </param>
+			</result>
+		</action>
+		
+		<action name="account_*" class="accountAction" method="{1}">
+			<result name="index">/index.jsp</result>
+			<result name="jsonList" type="json">
+				<param name="root">jsonList</param>
+				 <param name="excludeProperties">
+				 	 \[\d+\]\.pass,
+				 	 \[\d+\]\.name
+				 </param>
+			</result>
+		</action>
+		<action name="product_*" class="productAction" method="{1}">
+			
+			<result name="jsonMap" type="json">
+				<param name="root">pageMap</param>
+				<param name="excludeProperties">
+				 	 rows\[\d+\]\.category\.account,
+				 	 rows\[\d+\]\.date
+				 </param>
+			</result>
+			<result name="nameJsonMap" type="json">
+				<param name="root">nameMap</param>
+			</result>
+			<result name="detail">/detail.jsp</result>
+			<result name="backCar" type="redirect">/showCar.jsp</result>
+		</action>
+		<action name="send_*_*" class="sendAction">
+			<result name="send">/WEB-INF/{1}/{2}.jsp</result>
+		</action>
+		<action name="sorder_*" class="sorderAction" method="{1}">
+			<result name="showCar">/showCar.jsp</result>
+			<result name="jsonList" type="json"/>
+		</action>
+		<action name="user_*" class="userAction" method="{1}">
+			 <result name="goURL" type="redirect">
+				${#session.goURL}
+			</result>
+			
+		</action>
+		<action name="forder_*" class="forderAction" method="{1}">
+			<result name="bank">
+				/user/bank.jsp
+			</result>
+		</action>
+		<action name="pay_*" class="payAction" method="{1}">
+			<result name="pay">
+				/user/pay.jsp
+			</result>
+		</action>
+	</package>
+</struts>    

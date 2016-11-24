@@ -1,0 +1,33 @@
+meta标签说明: 
+
+<meta http-equiv="pragma" content="no-cache">
+不支持页面缓存,此配置支持:http 1.0
+
+<meta http-equiv="cache-control" content="no-cache">
+不支持页面缓存,此配置支持:http 1.1
+
+<meta http-equiv="expires" content="0">  
+如果支持页面缓存,则指定的缓存有效时间
+
+有些容易是不解析 meta标签, 例如(tomcat) 因此缓存需要服务器端代码的来实现
+
+=================================================================
+采用服务器端方式配置页面不缓存: 
+// 此方式仅仅支持 IE,对火狐和google浏览器无效
+response.setHeader("cache-control", "no-cache");
+
+缓存在get与post请求的表现形式不同:
+
+1: 如果是get请求跳转到 b.jsp,则 c.jsp返回时,缓存有效的但是是直接到服务器端获取新页面(没有页面过期提示)
+
+2: 如果是post请求跳转到 b.jsp,则 c.jsp返回时,缓存有效的, 而且会提示"页面过期", 需要用户手动刷新才会加载服务器端页面
+
+// 所有浏览器支持(有些浏览器get方式不支持)
+response.setHeader("cache-control", "no-store");
+
+
+MD5 1代加密: 明文+算法=密文
+
+MD5 2代加密: 明文+密钥+算法=密文
+
+ 
