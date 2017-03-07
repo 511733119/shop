@@ -13,7 +13,6 @@
             <!--左侧导航-->
             <div id="side_nav">
                 <div class="sideNavCategories">
-                    <h1>女装</h1>
                     <ul class="category departments">
                         <li class="header">分类</li>
                         <li><a href="#">毛衣</a></li>

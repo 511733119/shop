@@ -3,6 +3,8 @@ package cn.it.shop.action;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +17,12 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.google.gson.Gson;
+
 import cn.it.shop.model.Forder;
+import cn.it.shop.model.Pager;
 import cn.it.shop.model.Product;
+import net.sf.json.JSONObject;
 
 /*
  *ModelDriven 此接口必须要实现getModel（）方法，此方法会把返回的对象，压到值栈中 
@@ -25,6 +31,14 @@ import cn.it.shop.model.Product;
 @Scope("prototype")
 public class ProductAction extends BaseAction<Product> {
 	
+	 private String result;
+     public String getResult() {
+         return result;
+     }
+     public void setResult(String result) {
+         this.result = result;
+     }
+     
 	public String queryJoinCategory(){
 		//用来存储分页的数据
 		pageMap = new HashMap<String, Object>();
@@ -38,7 +52,6 @@ public class ProductAction extends BaseAction<Product> {
 	public void save(){
 		String pic = fileUpload.uploadFile(fileImage);
 		model.setPic(pic);
-//		System.out.println(model);
 		//商品信息入库
 		productService.save(model);
 	}
@@ -48,7 +61,6 @@ public class ProductAction extends BaseAction<Product> {
 		HttpServletRequest req = ServletActionContext.getRequest();
 		int typeid = (Integer.parseInt(req.getParameter("typeid")));
 		session.put("similar_product",productService.queryByCid(typeid));
-		System.out.println(productService.queryByCid(typeid));
 		return "detail";
 	}
 	//删除单个购物项
@@ -72,13 +84,11 @@ public class ProductAction extends BaseAction<Product> {
 		String ids[] = param.split(",");
 		Integer id[] =null;
 		if(ids.length==1){
-			System.out.println("1 ids.len"+ids.length);
 			id = new Integer[ids.length];
 			for (int i = 0; i < ids.length; i++) {
 				id[i] = Integer.parseInt(ids[i]);
 			}
 		}else {
-			System.out.println("2 ids.len"+ids.length);
 			id = new Integer[ids.length];
 			for (int i = 0; i < ids.length; i++) {
 				id[i] = Integer.parseInt(ids[i]);
@@ -89,9 +99,7 @@ public class ProductAction extends BaseAction<Product> {
 		}
 		//获得session里的购物车
 		Forder forder = (Forder)session.get("forder");
-		System.out.println(forder.getSorderSet());
 		forder = productService.deleteByCheck(forder, id);
-		System.out.println(forder.getSorderSet());
 		forder.setTotal(forderService.cluTotal(forder));
 		session.put("forder", forder);
 		
@@ -112,14 +120,46 @@ public class ProductAction extends BaseAction<Product> {
 		return "stream";
 	}
 	
+	/*
+	 * 根据搜索关键字获取相关商品名称
+	 */
 	public String getProName(){
-		List<Product> listName = productService.getProName(model.getName());
-		System.out.println(listName);
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String name = null;
+		try {
+			name = URLDecoder.decode(request.getParameter("name"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		List<String> listName = productService.getProName(name);
 		Map<String, Object> nameMap = new HashMap<String, Object>();
 		nameMap.put("name", listName);
-		System.out.println(nameMap);
+		Gson gson = new Gson();
+		String json = gson.toJson(listName);
+        result = json.toString();//给result赋值，传递给页面
 		return "nameJsonMap";
 		
+	}
+	
+	/*\
+	 * 根据输入的关键字搜索相关商品
+	 */
+	public String getSearchProduct(){
+		HttpServletRequest req = ServletActionContext.getRequest();
+		Pager<Product> proList = productService.getSearchProduct(1,16,req.getParameter("name"));
+		request.put("proList", proList);
+		session.put("name", req.getParameter("name"));
+		return "getSearchPage";
+	}
+	/*
+	 * 根据输入的关键字搜索相关商品(分页用)
+	 */
+	public String getSearchProduct2(){
+		HttpServletRequest req = ServletActionContext.getRequest();
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		Pager<Product> proList = productService.getSearchProduct(pageNum,16,String.valueOf(session.get("name")));
+		request.put("proList", proList);
+		return "getSearchPage";
 	}
 	
 }

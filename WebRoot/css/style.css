@@ -24,8 +24,6 @@ ul.sub_menu > li > ul{ border-top: solid 1px #5f5a56; margin-top:10px; }
 /*主题部分*/
 #side_nav{ width:200px; float:left; margin-top:12px; height: auto; overflow: hidden; }
 #side_nav h1{ font-size:27px; font-weight:normal; color:#544f4b; line-height:40px; padding-bottom:6px; }
-.sideNavCategories{ display:inline-block; width:100%; }
-.sideNavCategories > ul{ border-top:solid 1px; padding:12px 0px; }
 .sideNavCategories > ul li.header{ color:#312e2b; font-size:13px; text-transform:uppercase; font-weight:bold; padding-bottom:10px; background-color:#fff!important; }
 .sideNavCategories > ul > li{ padding:7px 0px; }
 .sideNavCategories > ul > li > a{ color:#544f4b; font-size:13px; text-decoration:none; display:block; }

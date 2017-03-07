@@ -18,5 +18,9 @@ public interface ProductDao extends BaseDao<Product> {
 	//根据类别查询商品
 	public List<Product> queryAllPro(int cid);
 	
-	public List<Product> getProName(String name) ;
+	//根据关键字获得商品名称
+	public List<String> getProName(String name) ;
+	
+	//用户点击搜索，列出相关商品
+	public Pager<Product> getSearchProduct( int pageNum,int pageSize,String name);
 }

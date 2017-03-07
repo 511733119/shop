@@ -15,13 +15,13 @@
 				<param name="inputName">inputStream</param>
 			</result>
 		</global-results>
-		<!--
+		<!--  
 		<global-exception-mappings>
 			<exception-mapping result="error" exception="java.lang.Exception"/>
 		</global-exception-mappings>
 	  -->
 		<action name="category_*" class="categoryAction" method="{1}">
-			<result name="listByOneCatgory">/listproduct.jsp</result>
+			<result name="listByOneCategory">/listproduct.jsp</result>
 			<result name="index">/index.jsp</result>
 			<!-- 必须先添加json包，然后继承json-default -->
 			<result name="jsonList" type="json">
@@ -64,10 +64,11 @@
 				 </param>
 			</result>
 			<result name="nameJsonMap" type="json">
-				<param name="root">nameMap</param>
+				<param name="root">result</param>
 			</result>
 			<result name="detail">/detail.jsp</result>
 			<result name="backCar" type="redirect">/showCar.jsp</result>
+			<result name="getSearchPage">/searchPage.jsp</result>
 		</action>
 		<action name="send_*_*" class="sendAction">
 			<result name="send">/WEB-INF/{1}/{2}.jsp</result>

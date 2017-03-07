@@ -2,49 +2,73 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+<head>
+	<script type="text/javascript" src="js/searchBox.js"></script>
+	<style type="text/css">
+		#popDiv{
+			position:absolute;
+			z-index:1;
+		}
+    	.mouseOver{
+    		background: #708090;
+    		color:#FFFAFA;
+    	}
+    	.mouseOut{
+    		background: #FFFAFA;
+    		color:#000;
+    	}
+    </style>
+</head>
   <body>
      <div class="header">
             <div class="header_container">
                 <!--头部开始-->
-                        <div class="top_bar clear">
-                            <!--头部小导航-->
-                            <div class="welcom fl">
-                            	<ul class="top_links">
-                            		<li>
-										<c:choose>
-											<c:when test="${empty sessionScope.user }">
-												<a href="${shop}/ulogin.jsp"><font style="color:red;">亲 , 请登录</font></a>
-											</c:when>
-											<c:otherwise>
-												<a href="#">欢迎你，${sessionScope.user.name }</a>
-											</c:otherwise>
-										</c:choose>
-									</li>
-								</ul>
-							</div>
-                            <ul class="top_links fr">
-                                <li><a href="${shop}/index.jsp">首页</a></li>
-                                <li><a href="#">我的账户</a></li>
-                                <li><a href="${shop}/showCar.jsp">购物车</a></li>
-                                <li><a href="#">注册</a></li>
-                                
-                            </ul>
-                            <!--头部小导航结束-->
-                            <!-- logo -->
-                            <h1 class="logo clear fl"> <a href="index.jsp"><img src="${shop}/images/JD_logo.jpg" style="width:220px;height:80px;" /></a> </h1>
-                            <!-- 购物车结束 -->
-                            <!-- 搜索框 -->
-                            <div class="header_search">
-                                <div>
-                                	<form action="${shop}/product_getProName.action" method="post">
-                                   	 	<input name="name" placeholder="请输入商品名称"   type="text"/>
-                                    	<button type="submit" title="Search"/>
-                                	</form>
-                                </div>
-                            </div>
-                   
-                        </div>
-                    
+                  <div class="top_bar clear">
+                      <!--头部小导航-->
+                      <div class="welcom fl">
+                      	<ul class="top_links">
+                      		<li>
+						<c:choose>
+							<c:when test="${empty sessionScope.user }">
+								<a href="${shop}/ulogin.jsp"><font style="color:red;">亲 , 请登录</font></a>
+							</c:when>
+							<c:otherwise>
+								<a href="#">欢迎你，${sessionScope.user.name }</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+				</ul>
+			  </div>
+                      <ul class="top_links fr">
+                          <li><a href="${shop}/index.jsp">首页</a></li>
+                          <li><a href="#">我的账户</a></li>
+                          <li><a href="${shop}/showCar.jsp">购物车</a></li>
+                          <li><a href="#">注册</a></li>
+                      </ul>
+                      <!--头部小导航结束-->
+                      <!-- logo -->
+                      <h1 class="logo clear fl"> <a href="index.jsp"><img src="${shop}/images/JD_logo.jpg" 
+                      	style="width:220px;height:80px;" /></a> </h1>
+                      <!-- 购物车结束 -->
+                      <!-- 搜索框 -->
+               
+                   <div id="mydiv">
+                   		<form action="${shop}/product_getSearchProduct.action" method="post">
+                        	<input id="name" name="name" size="50" placeholder="请输入商品名称" type="text" 
+                        		onKeyup="getMoreContents()" onBlur="keywordBlur()"
+                        		onFocus="getMoreContents()" AutoComplete="off"/>
+                       		<button type="submit"></button>
+                       	</form>
+	                    <!-- 下面是内容展示区域 -->
+				   		<div id="popDiv">
+					   		<table id="content-table" bgcolor="#FFFAFA" border="0" cellspacing="0" cellpadding="0">
+					   			<tbody id="content_table_body">
+					   				<!-- 动态查询出来的数据显示在这里 -->
+					   			</tbody>
+					   		</table>
+					   	</div>
+                    </div>
+                 </div>
             </div>
         </div>
         <!-- 头部结束 -->
@@ -54,7 +78,7 @@
         <!---->
          <div class="nav">
             <ul class="primary_nav">
-                <li class="active highlight"><a href="#">所有商品</a>
+                <li><a href="index.jsp">所有商品</a>
                     <!--二级菜单-->
                     <ul class="sub_menu">
                         <li > <a href="#">裙装</a>

@@ -75,7 +75,6 @@
 	    </div><br>
 	    <div>
 	    	<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">更新</a>
-	    	<input type="hidden" name="id">
 	    </div> 
 	</form>  
 

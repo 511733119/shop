@@ -38,7 +38,6 @@
 				required:true,
 				missingMessage:'请选择所属类别'
 			});
-    		
     		$("input[name=name]").validatebox({
     			required:true,
     			missingMessage:'请输入商品名称'
@@ -84,6 +83,7 @@
     						parent.$("#win").window("close");
     						//刷新页面
 							var dg = parent.$("iframe[title='商品管理']").get(0).contentWindow.$("#dg");
+    						
     						dg.datagrid("reload");
     					}
     				});
@@ -115,7 +115,7 @@
 	    </div><br> 
 	     <div>   
 	        <label>所属类别:</label>   
-	         <input id="cc" name="account.id"> 
+	         <input id="cc" name="category.id"> 
 	    </div><br> 
 	    <div>
 	    	<label>加入推荐：</label>

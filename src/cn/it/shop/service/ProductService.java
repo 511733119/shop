@@ -26,5 +26,8 @@ public interface ProductService extends BaseService<Product> {
 	public Forder deleteByCheck(Forder forder, Integer[] ids);
 	
 	//获得商品名称
-	public List<Product> getProName(String name);
+	public List<String> getProName(String name);
+	
+	//根据商品关键字查询相关商品
+	public Pager<Product> getSearchProduct( int pageNum,int pageSize,String name);
 }

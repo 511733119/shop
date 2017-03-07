@@ -39,7 +39,7 @@
 							<input type='hidden' name='pa_MP'    value='${requestScope.pa_MP}'>
 							<input type='hidden' name='pd_FrpId' value='${requestScope.pd_FrpId}'>
 							<input type="hidden" name="pr_NeedResponse"  value="${requestScope.pr_NeedResponse}">
-							<input type='text' name='hmac' value='${requestScope.hmac}'>
+							<input type='hidden' name='hmac' value='${requestScope.hmac}'>
 							<input type='submit' value="去支付" style="width: 80px; height: 40px;" />
 						</form>
 					</div>

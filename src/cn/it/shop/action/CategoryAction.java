@@ -59,7 +59,7 @@ public class CategoryAction extends BaseAction<Category> {
 		Pager<Product> result = categoryService.findProduct(1, 16,model.getId());
 		session.put("result", result);
 		session.put("cid", model.getId());
-		return "listByOneCatgory";
+		return "listByOneCategory";
 		
 	}
 	public String listProduct2(){
@@ -68,7 +68,7 @@ public class CategoryAction extends BaseAction<Category> {
 		int cid = Integer.parseInt(request.getParameter("cid"));
 		Pager<Product> result = categoryService.findProduct(pageNum, 16,cid);
 		session.put("result", result);
-		return "listByOneCatgory";
+		return "listByOneCategory";
 		
 	}
 }

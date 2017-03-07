@@ -23,7 +23,7 @@
     				myChart.setTitleColor('#607985');
     				myChart.setAxisValuesColor('#607985');
     				myChart.setAxisNameX('商品名称',false);
-    				myChart.setAxisNameY('销售',false);
+    				myChart.setAxisNameY('销售额',false);
     				myChart.setGridOpacity(0.8);
     				myChart.setAxisPaddingLeft(50);
     				myChart.setAxisPaddingBottom(40);
@@ -42,7 +42,7 @@
   		查询数量
   		<select id="number">
   			<option value="5">5</option>
-  			<option value="7">7</option>
+  			<option value="8">8</option>
   			<option value="10">10</option>
   		</select>
   		报表类型

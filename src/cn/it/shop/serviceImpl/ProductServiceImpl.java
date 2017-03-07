@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import cn.it.shop.model.Forder;
+import cn.it.shop.model.Pager;
 import cn.it.shop.model.Product;
 import cn.it.shop.model.Sorder;
 import cn.it.shop.service.ProductService;
@@ -90,7 +91,12 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
 	}
 
 	@Override
-	public List<Product> getProName(String name) {
+	public List<String> getProName(String name) {
 		return productDao.getProName(name);
+	}
+
+	@Override
+	public Pager<Product> getSearchProduct( int pageNum,int pageSize,String name) {
+		return productDao.getSearchProduct(pageNum,pageSize,name);
 	}
 }

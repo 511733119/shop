@@ -34,7 +34,7 @@
 	                <table class="data-table cart-table" cellpadding="0" cellspacing="0">
 						<tr>
 							<th class="align_center" width="10%">商品编号</th>
-							<th class="align_left" width="35%" colspan="2">商品名称</th>
+							<th class="align_center" width="35%" colspan="2">商品名称</th>
 							<th class="align_center" width="10%">销售价格</th>
 							<th class="align_center" width="20%">数量</th>
 							<th class="align_center" width="15%">小计</th>
@@ -43,10 +43,10 @@
 						<tr lang="${sorder.product.id}">
 							<td class="align_center"><a href="#" class="edit">${sorder.product.id}</a>
 							</td>
-							<td width="80px"><img src="${shop}/image/${sorder.product.pic}" width="80"
+							<td width="80px"><img src="${shop}/image/product/${sorder.product.pic}" width="80"
 								height="80" />
 							</td>
-							<td class="align_left"><a class="pr_name" href="#">${sorder.name}</a>
+							<td class="align_left">${sorder.name}</a>
 							</td>
 							<td class="align_center vline">￥ ${sorder.price}</td>
 							<td class="align_center vline">

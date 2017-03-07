@@ -9,16 +9,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.it.shop.model.Account;
 import cn.it.shop.service.AccountService;
+import cn.it.shop.service.CategoryService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext-*.xml")
 public class AccountServiceImplTest {
 
 	@Resource
-	private AccountService accountService;
+	private CategoryService categoryService;
 	
 	@Test
-	public void testSave() {
-		accountService.save(new Account("admin","大强", "admin***"));
+	public void testQuery() {
+		categoryService.query();
 	}
 
 }

@@ -55,10 +55,42 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements ProductDao {
 	}
 	
 	@Override
-	public List<Product> getProName(String proname) {
-		String hql = "SELECT p.name FROM Product p WHERE p.name LIKE :name ORDER BY p.id ASC";
-		return getSession().createQuery(hql)
+	public List<String> getProName(String proname) {
+		String hql = "SELECT p.name FROM Product p WHERE p.name LIKE :name ORDER BY p.id DESC limit 1,10";
+		return getSession().createSQLQuery(hql)
 				.setString("name", "%"+proname+"%")
 				.list();
 	}
+	
+	@Override
+	public Pager<Product> getSearchProduct( int pageNum,int pageSize,String name){
+		Pager<Product> result = null;
+		
+		int fromIndex = pageSize * (pageNum-1);
+		
+		String hql ="FROM Product p WHERE p.commend=true AND p.open=true AND p.name LIKE :name ORDER BY p.date DESC  limit "+fromIndex+", "+pageSize;
+		//计算总记录条数
+		String countHql = "SELECT count(p.id) FROM Product p WHERE p.name LIKE :name";
+		
+		//存放product
+		List<Product> productList = new ArrayList<Product>();
+		productList = getSession().createQuery(hql)
+						.setString("name", "%" +name + "%")
+						.setFirstResult(fromIndex)
+						.setMaxResults(pageSize)
+						.list();
+		
+		//计算总记录条数
+		List countResult = getSession().createQuery(countHql).setString("name", "%"+name+"%").list();
+		int totalRecord = ((Number)countResult.get(0)).intValue();
+		
+		//获取总页数
+		int totalPage = totalRecord / pageSize;
+		if(totalRecord % pageSize !=0){
+			totalPage++;
+		}
+		result = new Pager<Product>(pageSize,pageNum
+				,totalRecord,totalPage,productList);
+		return result;
+	}	
 }

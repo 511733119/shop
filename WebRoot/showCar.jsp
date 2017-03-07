@@ -96,10 +96,10 @@
 					<c:forEach items="${sessionScope.forder.sorderSet}" var="sorder">
 						<tr id="tr" lang="${sorder.product.id }">
 							<td class="align_center"><input type="checkbox" class="checkbox" value="${sorder.product.id }"></td>
-							<td width="80px" class="align_center"><img src="${shop}/image/${sorder.product.pic}" width="80px"
+							<td width="80px" class="align_center"><img src="${shop}/image/product/${sorder.product.pic}" width="80px"
 								height="80px" />
 							</td>
-							<td class="align_center"><a class="pr_name" href="#">${sorder.name }</a>
+							<td class="align_center">${sorder.name }</a>
 							</td>
 							<td class="align_center vline">
 								${sorder.price }

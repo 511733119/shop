@@ -3,21 +3,21 @@
 <html>
 <head>
 	<title>错误页面</title>
-	<meta http-equiv=refresh content=3;url=http://www.hao123.com />
-	<style type=text/css>
-	.font14 {
-		font-size: 14px
-	}
-	
-	.font12 {
-		font-size: 12px
-	}
-	
-	.font12 a {
-		font-size: 12px;
-		color: #CC0000;
-		text-decoration: none;
-	}
+	<meta http-equiv=refresh content=3;url="http://www.hao123.com" />
+	<style type="text/css">
+		.font14 {
+			font-size: 14px
+		}
+		
+		.font12 {
+			font-size: 12px
+		}
+		
+		.font12 a {
+			font-size: 12px;
+			color: #CC0000;
+			text-decoration: none;
+		}
 	</style>
 </head>
 
